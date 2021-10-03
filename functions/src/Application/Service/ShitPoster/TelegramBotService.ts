@@ -21,7 +21,7 @@ export class TelegramBotService {
         this.chats = config.chats;
     }
 
-    public async sendImage(image: string) {
+    public async sendMessage(image: string) {
         if (await ImagesRepository.isSended(image)) {
             return;
         }
