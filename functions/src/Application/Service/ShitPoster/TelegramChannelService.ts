@@ -24,7 +24,7 @@ export class TelegramChannelService implements ImageServiceInterface {
 
     private async getImagesFromTelegram(channel: string): Promise<string[]> {
         const matches = (await (await fetch(`${BASE_TELEGRAM_URL}${channel}`)).text())
-            .match(RegExp(/background-image:url\('https?:\/\/.*?'/gm));
+            .match(RegExp(/background-image:url\('https?:\/\/.*?.(jpg|jpeg|png)'/gm));
 
         if (!matches) {
             return [];
