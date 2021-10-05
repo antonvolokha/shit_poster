@@ -55,7 +55,7 @@ export class TelegramAdapter {
 
             for (const chatIdsKey in this.chats) {
                 try {
-                    this.bot.sendPhoto(this.chats[chatIdsKey], response);
+                    await this.bot.sendPhoto(this.chats[chatIdsKey], response);
                 } catch (e) {
                     resolve(false);
                     return;

@@ -1,5 +1,5 @@
 import {BaseSchedule} from './BaseSchedule';
-import {coub, rss, telegram} from '../../config';
+import {coub, rss, telegramShit} from '../../config';
 //import { telegram} from '../../config';
 import {CoubService} from "../../Application/Service/ShitPoster/CoubService";
 import {JoyReactorService} from "../../Application/Service/ShitPoster/JoyReactorService";
@@ -10,7 +10,7 @@ export const scheduleFunction = new BaseSchedule()
     .setSchedule('every 15 minutes')
     .setTimeZone('Europe/Kiev')
     .setAction(async () => {
-        const telegramBot = new TelegramAdapter(telegram);
+        const telegramBot = new TelegramAdapter(telegramShit);
         (new JoyReactorService(rss)).getImages().then((images) => {
             images.forEach((image) => {
                 telegramBot.sendPhotoOnce(image);
@@ -21,7 +21,7 @@ export const scheduleFunction = new BaseSchedule()
                 telegramBot.sendMessageOnce(coub);
             });
         });
-        (new TelegramChannelService(telegram)).getImages().then((images) => {
+        (new TelegramChannelService(telegramShit)).getImages().then((images) => {
             images.forEach((image) => {
                 telegramBot.sendPhotoOnce(image);
             });

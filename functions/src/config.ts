@@ -1,4 +1,4 @@
-export const telegram = {
+export const telegramShit = {
     botToken: '_TELEGRAM_BOT_TOKEN',
     chats: [
         -1488,
