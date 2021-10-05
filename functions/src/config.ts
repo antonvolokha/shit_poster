@@ -2,6 +2,9 @@ export const telegram = {
     botToken: '_TELEGRAM_BOT_TOKEN',
     chats: [
         -1488,
+    ],
+    channels: [
+        'ukrainiatrash'
     ]
 }
 

@@ -1,8 +1,9 @@
 import * as Parser from 'rss-parser';
+import {ImageServiceInterface} from "../../../Domain/Contract/ImageServiceInterfaсe";
 
 // eslint-disable-next-line require-jsdoc
-export class ShitPosterService {
-    private rssChannels: string[];
+export class JoyReactorService implements ImageServiceInterface {
+    private readonly rssChannels: string[];
 
     constructor(config: Record<string, any>) {
         this.rssChannels = config.channels;
