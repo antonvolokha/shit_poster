@@ -13,16 +13,18 @@ export class TelegramAdapter {
         this.bot = new TelegramBot(this.token, {polling: false})
     }
 
-    public async sendPhotoOnce(photo: string) {
+    public async sendPhotoOnce(photo: string, save: boolean = true) {
         if (await ImagesRepository.isSended(photo)) {
             return;
         }
 
-        const status = await this.sendPhoto(photo);
-
-        if (status) {
-            ImagesRepository.save(photo);
-        }
+        setTimeout(() => {
+            this.sendPhoto(photo).then((status) => {
+                if (status && save) {
+                    ImagesRepository.save(photo);
+                }
+            });
+        }, 500);
     }
 
     public async sendMessageOnce(message: string, save: boolean = true) {
@@ -30,11 +32,13 @@ export class TelegramAdapter {
             return;
         }
 
-        const status = await this.sendMessage(message);
-
-        if (status && save) {
-            ImagesRepository.save(message);
-        }
+        setTimeout(() => {
+            this.sendMessage(message).then((status) => {
+                if (status && save) {
+                    ImagesRepository.save(message);
+                }
+            })
+        }, 500);
     }
 
     public async sendPhoto(photo: string): Promise<boolean> {
