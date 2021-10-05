@@ -31,7 +31,7 @@ export class JoyReactorService implements ImageServiceInterface {
                 return;
             }
 
-            const matches = item.content.match(RegExp('src="https?:\/\/.*?"'));
+            const matches = item.content.match(RegExp('src="https?:\/\/.*?.(jpg|jpeg|png)"'));
             // eslint-disable-next-line guard-for-in
             for (const index in matches) {
                 if (index == '0') {
