@@ -1,21 +1,12 @@
-import * as functions from 'firebase-functions';
-import {CloudFunction} from 'firebase-functions';
+import {Job, scheduleJob} from 'node-schedule';
+import {ScheduleAction} from "../../Domain/Type/ScheduleAction";
 
-declare type ScheduleAction = () => void;
-
-// eslint-disable-next-line require-jsdoc
 export class BaseSchedule {
   private actions: ScheduleAction[] = [];
-  private schedule: string | undefined;
-  private timezone: string | undefined;
+  private rule: string | undefined;
 
-  setSchedule(schedule: string): BaseSchedule {
-    this.schedule = schedule;
-    return this;
-  }
-
-  setTimeZone(timezone: string): BaseSchedule {
-    this.timezone = timezone;
+  setRule(rule: string): BaseSchedule {
+    this.rule = rule;
     return this;
   }
 
@@ -24,24 +15,15 @@ export class BaseSchedule {
     return this;
   }
 
-  create(): CloudFunction<unknown> {
-    if (!this.schedule) {
-      // eslint-disable-next-line no-throw-literal
-      throw 'schedule not set';
+  create(): Job {
+    if (!this.rule) {
+      throw new Error('Rule is not set');
     }
 
-    if (!this.timezone) {
-      // eslint-disable-next-line no-throw-literal
-      throw 'timezone not set';
-    }
-
-    return functions.pubsub
-        .schedule(this.schedule)
-        .timeZone(this.timezone)
-        .onRun((context) => {
-          this.actions.forEach((action: ScheduleAction) => {
-            action();
-          });
-        });
+    return scheduleJob(this.rule, () => {
+      this.actions.forEach((action: ScheduleAction) => {
+        action();
+      });
+    });
   }
 }

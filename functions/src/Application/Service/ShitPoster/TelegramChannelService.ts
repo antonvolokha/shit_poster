@@ -17,7 +17,6 @@ export class TelegramChannelService implements ImageServiceInterface {
             images.push(...(await this.getImagesFromTelegram(this.channels[index])));
         }
 
-        console.log(images);
         return images;
     }
 

@@ -1,4 +1,4 @@
-import * as ImagesRepository from '../Persistanse/Firestore/ImagesRepository';
+import * as ImagesRepository from '../Persistanse/Sqlite/ImagesRepository';
 import * as TelegramBot from 'node-telegram-bot-api';
 import * as requests from 'request-promise-native';
 

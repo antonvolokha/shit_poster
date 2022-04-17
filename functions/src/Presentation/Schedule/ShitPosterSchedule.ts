@@ -7,8 +7,7 @@ import {TelegramAdapter} from "../../Infrastructure/Adapter/TelegramAdapter";
 import {TelegramChannelService} from "../../Application/Service/ShitPoster/TelegramChannelService";
 
 export const scheduleFunction = new BaseSchedule()
-    .setSchedule('every 15 minutes')
-    .setTimeZone('Europe/Kiev')
+    .setRule('*/15 * * * *')
     .setAction(async () => {
         const telegramBot = new TelegramAdapter(telegramShit);
         (new JoyReactorService(rss)).getImages().then((images) => {
