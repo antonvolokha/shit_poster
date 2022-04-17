@@ -15,6 +15,7 @@ export class TelegramAdapter {
 
     public async sendPhotoOnce(photo: string, save: boolean = true) {
         if (await ImagesRepository.isSended(photo)) {
+            console.error(`Photo ${photo} already sended`);
             return;
         }
 
@@ -29,6 +30,7 @@ export class TelegramAdapter {
 
     public async sendMessageOnce(message: string, save: boolean = true) {
         if (await ImagesRepository.isSended(message)) {
+            console.error(`Message ${message} already sended`);
             return;
         }
 
@@ -41,7 +43,7 @@ export class TelegramAdapter {
         }, 500);
     }
 
-    public async sendPhoto(photo: string): Promise<boolean> {
+    private async sendPhoto(photo: string): Promise<boolean> {
         return new Promise(async (resolve) => {
             const response = await requests({
                 uri: photo,
@@ -66,7 +68,7 @@ export class TelegramAdapter {
         });
     }
 
-    public async sendMessage(message: string): Promise<boolean> {
+    private async sendMessage(message: string): Promise<boolean> {
         let status = true;
         for (const chatIdsKey in this.chats) {
             try {
